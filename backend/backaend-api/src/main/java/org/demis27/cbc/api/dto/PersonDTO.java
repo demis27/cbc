@@ -1,6 +1,6 @@
 package org.demis27.cbc.api.dto;
 
-public class Person {
+public class PersonDTO {
 
     public String id;
 
@@ -9,6 +9,6 @@ public class Person {
     public String lastName;
 
     @Override public String toString() {
-        return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", id='" + id + '\'' + '}';
+        return "PersonDTO{" + "id='" + id + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + '}';
     }
 }

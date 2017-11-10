@@ -1,6 +1,6 @@
 package org.demis27.cbc.api.service;
 
-import org.demis27.cbc.api.dto.ComicBook;
+import org.demis27.cbc.api.entity.ComicBookEntity;
 import org.demis27.cbc.api.repository.ComicBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +13,15 @@ public class ComicBookService {
     @Autowired
     private ComicBookRepository repository;
 
-    public Flux<ComicBook> findAll() {
+    public Flux<ComicBookEntity> findAll() {
         return repository.findAll();
     }
 
-    public Mono<ComicBook> findById(String id) {
+    public Mono<ComicBookEntity> findById(String id) {
         return repository.findById(id);
     }
 
-    public Mono<ComicBook> create(ComicBook ComicBook) {
+    public Mono<ComicBookEntity> create(ComicBookEntity ComicBook) {
         return repository.insert(ComicBook);
     }
 

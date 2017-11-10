@@ -2,7 +2,9 @@ package org.demis27.cbc.api.controller;
 
 import javax.validation.Valid;
 
-import org.demis27.cbc.api.dto.Person;
+import org.demis27.cbc.api.converter.PersonConverter;
+import org.demis27.cbc.api.dto.PersonDTO;
+import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -12,7 +14,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static io.netty.handler.codec.http.HttpHeaders.Values.APPLICATION_JSON;
-import static java.util.Optional.empty;
 import static org.demis27.cbc.api.controller.ControllerHelper.allows;
 
 @RestController
@@ -21,19 +22,22 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
+    @Autowired
+    private PersonConverter converter;
+
     @RequestMapping(path = "/api/person", method = RequestMethod.GET)
-    public Flux<Person> list() {
-        return service.findAll();
+    public Flux<PersonDTO> list() {
+        return converter.convertEntities(service.findAll());
     }
 
     @RequestMapping(path = "/api/person/{id}", method = RequestMethod.GET)
-    public Mono<Person> get(@PathVariable(value = "id") String id) {
-        return service.findById(id);
+    public Mono<PersonDTO> get(@PathVariable(value = "id") String id) {
+        return converter.convertEntity(service.findById(id));
     }
 
     @RequestMapping(path = "/api/person", method = RequestMethod.POST, produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
-    public Mono<Person> post(@RequestBody @Valid final Person person) {
-        return service.create(person);
+    public Mono<PersonDTO> post(@RequestBody @Valid final PersonDTO person) {
+        return converter.convertEntity(service.create(converter.convertDTO(person)));
     }
 
     @RequestMapping(path = "/api/person/{id}", method = RequestMethod.DELETE)

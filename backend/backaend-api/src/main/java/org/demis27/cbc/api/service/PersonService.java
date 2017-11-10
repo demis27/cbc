@@ -1,6 +1,6 @@
 package org.demis27.cbc.api.service;
 
-import org.demis27.cbc.api.dto.Person;
+import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public Flux<Person> findAll() {
+    public Flux<PersonEntity> findAll() {
         return repository.findAll();
     }
 
-    public Mono<Person> findById(String id) {
+    public Mono<PersonEntity> findById(String id) {
         return repository.findById(id);
     }
 
-    public Mono<Person> create(Person person) {
+    public Mono<PersonEntity> create(PersonEntity person) {
         return repository.insert(person);
     }
 

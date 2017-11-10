@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.demis27.cbc.api.dto.Person;
+import org.demis27.cbc.api.dto.PersonDTO;
+import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.service.PersonService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,24 +49,24 @@ public class PersonControllerTest {
         ReflectionUtils.makeAccessible(serviceField);
         ReflectionUtils.setField(serviceField, context.getBean("personController"), service);
 
-        Person stan = new Person();
+        PersonEntity stan = new PersonEntity();
         stan.firstName = "Stan";
         stan.lastName = "Lee";
         stan.id = "1";
 
-        Person jack = new Person();
+        PersonEntity jack = new PersonEntity();
         jack.firstName = "Jack";
         jack.lastName = "Kirby";
         jack.id = "2";
 
-        Person steve = new Person();
+        PersonEntity steve = new PersonEntity();
         steve.firstName = "Steve";
         steve.lastName = "Ditko";
         steve.id = "3";
 
         when(service.findAll()).thenReturn(Flux.just(stan, jack));
         when(service.findById("1")).thenReturn(Mono.just(stan));
-        when(service.create(any(Person.class))).thenReturn(Mono.just(steve));
+        when(service.create(any(PersonEntity.class))).thenReturn(Mono.just(steve));
         when(service.delete(anyString())).thenReturn(Mono.<Void>empty());
     }
 
@@ -80,7 +81,7 @@ public class PersonControllerTest {
                 .when()
                         .get("/api/person");
         // @formatter:on
-        Person[] persons = response.getBody().as(Person[].class);
+        PersonDTO[] persons = response.getBody().as(PersonDTO[].class);
         Assert.assertEquals(2, persons.length);
     }
 
@@ -95,7 +96,7 @@ public class PersonControllerTest {
                 .when()
                         .get("/api/person/1");
         // @formatter:on
-        Person person = response.as(Person.class);
+        PersonDTO person = response.as(PersonDTO.class);
         Assert.assertEquals("Stan", person.firstName);
         Assert.assertEquals("Lee", person.lastName);
         Assert.assertEquals("1", person.id);
@@ -116,7 +117,7 @@ public class PersonControllerTest {
                         .post("/api/person");
         // @formatter:on
 
-        Person person = response.as(Person.class);
+        PersonDTO person = response.as(PersonDTO.class);
         Assert.assertEquals("Steve", person.firstName);
         Assert.assertEquals("Ditko", person.lastName);
         Assert.assertEquals("3", person.id);
