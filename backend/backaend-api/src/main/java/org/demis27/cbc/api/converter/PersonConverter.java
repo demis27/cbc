@@ -1,5 +1,6 @@
 package org.demis27.cbc.api.converter;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,12 @@ import org.springframework.stereotype.Service;
 public class PersonConverter {
 
     public List<PersonDTO> convertEntities(List<PersonEntity> entities) {
-        return entities.stream().map(person -> convertEntity(person)).collect(Collectors.toList());
+        if (entities != null && entities.size() > 0) {
+            return entities.stream().map(person -> convertEntity(person)).collect(Collectors.toList());
+        }
+        else {
+            return Collections.emptyList();
+        }
     }
 
     public PersonDTO convertEntity(PersonEntity entity) {
@@ -26,7 +32,12 @@ public class PersonConverter {
     }
 
     public List<PersonEntity> convertDTOs(List<PersonDTO> dtos) {
-        return dtos.stream().map(person -> convertDTO(person)).collect(Collectors.toList());
+        if (dtos != null && dtos.size() > 0) {
+            return dtos.stream().map(person -> convertDTO(person)).collect(Collectors.toList());
+        }
+        else {
+            return Collections.emptyList();
+        }
     }
 
     public PersonEntity convertDTO(PersonDTO dto) {

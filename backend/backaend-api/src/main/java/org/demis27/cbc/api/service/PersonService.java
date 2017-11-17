@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.range.Range;
 import org.demis27.cbc.api.repository.PersonRepository;
+import org.demis27.cbc.api.sort.SortParameterElement;
+import org.demis27.cbc.api.sort.SortParameterElementConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +22,14 @@ public class PersonService {
         return repository.findAll();
     }
 
-    public List<PersonEntity> findPart(Range range) {
-        return repository.findAll();
+    public List<PersonEntity> findPart(Range range, List<SortParameterElement> sorts) {
+        if (sorts == null || sorts.size() == 0) {
+            return repository.findAll(PageRequest.of(range.getPage(), range.getSize())).getContent();
+        } else {
+            return repository
+                    .findAll(PageRequest.of(range.getPage(), range.getSize(), SortParameterElementConverter.convert(sorts)))
+                    .getContent();
+        }
     }
 
     public PersonEntity findById(String id) {

@@ -1,8 +1,16 @@
 package org.demis27.cbc.api.controller;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.demis27.cbc.api.range.Range;
+import org.demis27.cbc.api.range.RangeConverter;
+import org.demis27.cbc.api.range.RangeException;
+import org.demis27.cbc.api.range.RequestedRangeUnsatisfiableException;
+import org.demis27.cbc.api.sort.SortParameterElement;
+import org.demis27.cbc.api.sort.SortParameterParser;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -19,5 +27,32 @@ public class ControllerHelper {
         headers.setAllow(allow);
 
         return new ResponseEntity(headers, HttpStatus.NO_CONTENT);
+    }
+
+    public static List<SortParameterElement> getSorts(String sortParameters) {
+        List<SortParameterElement> sorts;
+        if (sortParameters != null && sortParameters.length() > 0) {
+            sorts = SortParameterParser.parse(sortParameters);
+        } else {
+            sorts = Collections.emptyList();
+        }
+        return sorts;
+    }
+
+    public static Range getRange(String requestRange) throws RangeException {
+        Range range;
+
+        if (requestRange != null) {
+            try {
+                range = RangeConverter.parse(requestRange);
+            } catch (RequestedRangeUnsatisfiableException e) {
+                String reason = "Wrong format for the range parameter. The format is: \"resources: page=[page-number];size=[page-size]\" and the parameter value is: "
+                        + requestRange;
+                throw new RangeException(reason);
+            }
+        } else {
+            range = new Range(0, 10);
+        }
+        return range;
     }
 }

@@ -2,7 +2,6 @@ package org.demis27.cbc.api.controller;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
@@ -27,9 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ReflectionUtils;
 
 import com.jayway.restassured.response.Response;
-
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -69,7 +65,7 @@ public class PersonControllerTest {
         persons.add(stan);
         persons.add(jack);
 
-        when(service.findPart(any())).thenReturn(persons);
+        when(service.findPart(any(), any())).thenReturn(persons);
         when(service.findById("1")).thenReturn(stan);
         when(service.create(any(PersonEntity.class))).thenReturn(steve);
     }
@@ -116,7 +112,7 @@ public class PersonControllerTest {
                         .header("Content-Type", "application/json")
                         .body(steve)
                         .expect()
-                        .statusCode(200)
+                        .statusCode(201)
                 .when()
                         .post("/api/person");
         // @formatter:on
@@ -134,7 +130,7 @@ public class PersonControllerTest {
                 given()
                         .port(port)
                         .expect()
-                        .statusCode(200)
+                        .statusCode(204)
                 .when()
                         .delete("/api/person/1");
         // @formatter:on
@@ -151,7 +147,7 @@ public class PersonControllerTest {
                 .when()
                         .options("/api/person");
         // @formatter:on
-        assertMethods("OPTIONS,GET,POST,HEAD,DELETE", response.header("Allow"));
+        assertMethods("OPTIONS,GET,POST,HEAD,DELETE,PUT", response.header("Allow"));
     }
 
     public void assertMethods(String expected, String actual) {
