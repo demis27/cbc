@@ -9,16 +9,7 @@ import org.demis27.cbc.api.entity.PersonEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonConverter {
-
-    public List<PersonDTO> convertEntities(List<PersonEntity> entities) {
-        if (entities != null && entities.size() > 0) {
-            return entities.stream().map(person -> convertEntity(person)).collect(Collectors.toList());
-        }
-        else {
-            return Collections.emptyList();
-        }
-    }
+public class PersonConverter extends Converter<PersonEntity, PersonDTO> {
 
     public PersonDTO convertEntity(PersonEntity entity) {
         if (entity == null)
@@ -31,15 +22,6 @@ public class PersonConverter {
         dto.lastUpdateDate = entity.lastUpdateDate;
 
         return dto;
-    }
-
-    public List<PersonEntity> convertDTOs(List<PersonDTO> dtos) {
-        if (dtos != null && dtos.size() > 0) {
-            return dtos.stream().map(person -> convertDTO(person)).collect(Collectors.toList());
-        }
-        else {
-            return Collections.emptyList();
-        }
     }
 
     public PersonEntity convertDTO(PersonDTO dto) {
