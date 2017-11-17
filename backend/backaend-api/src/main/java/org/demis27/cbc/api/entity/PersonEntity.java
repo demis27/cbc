@@ -1,14 +1,16 @@
 package org.demis27.cbc.api.entity;
 
-public class PersonEntity {
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public String id;
+@Document(collection = "person")
+public class PersonEntity extends Entity {
 
     public String firstName;
 
     public String lastName;
 
     @Override public String toString() {
-        return "PersonEntity{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", id='" + id + '\'' + '}';
+        return "PersonEntity{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", id='" + id + '\'' + ", createDate=" + createDate
+                + ", lastUpdateDate=" + lastUpdateDate + '}';
     }
 }

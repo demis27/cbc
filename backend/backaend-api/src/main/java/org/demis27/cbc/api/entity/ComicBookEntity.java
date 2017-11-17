@@ -1,12 +1,10 @@
 package org.demis27.cbc.api.entity;
 
-public class ComicBookEntity {
+public class ComicBookEntity extends Entity {
 
     public String title;
 
-    public String id;
-
     @Override public String toString() {
-        return "ComicBookEntity{" + "title='" + title + '\'' + ", id='" + id + '\'' + '}';
+        return "ComicBookEntity{" + "title='" + title + '\'' + ", id='" + id + '\'' + ", createDate=" + createDate + ", lastUpdateDate=" + lastUpdateDate + '}';
     }
 }

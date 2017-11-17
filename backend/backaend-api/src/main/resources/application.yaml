@@ -5,7 +5,5 @@ spring:
     data:
         mongodb:
             database: cbc
-
-spring:
     mvc:
         dispatch-options-request: true

@@ -27,6 +27,8 @@ public class PersonConverter {
         dto.id = entity.id;
         dto.firstName = entity.firstName;
         dto.lastName = entity.lastName;
+        dto.createDate = entity.createDate;
+        dto.lastUpdateDate = entity.lastUpdateDate;
 
         return dto;
     }
