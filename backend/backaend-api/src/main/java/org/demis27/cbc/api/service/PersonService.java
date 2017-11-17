@@ -1,12 +1,13 @@
 package org.demis27.cbc.api.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.demis27.cbc.api.entity.PersonEntity;
+import org.demis27.cbc.api.range.Range;
 import org.demis27.cbc.api.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
 public class PersonService {
@@ -14,19 +15,31 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public Flux<PersonEntity> findAll() {
+    public List<PersonEntity> findAll() {
         return repository.findAll();
     }
 
-    public Mono<PersonEntity> findById(String id) {
-        return repository.findById(id);
+    public List<PersonEntity> findPart(Range range) {
+        return repository.findAll();
     }
 
-    public Mono<PersonEntity> create(PersonEntity person) {
+    public PersonEntity findById(String id) {
+        Optional<PersonEntity> person = repository.findById(id);
+        if (person.isPresent())
+            return person.get();
+        else
+            return null;
+    }
+
+    public PersonEntity create(PersonEntity person) {
         return repository.insert(person);
     }
 
-    public Mono<Void> delete(String id) {
-        return repository.deleteById(id);
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
+    public PersonEntity update(PersonEntity person) {
+        return repository.save(person);
     }
 }

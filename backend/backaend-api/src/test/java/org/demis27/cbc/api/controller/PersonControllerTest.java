@@ -6,6 +6,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,10 +65,13 @@ public class PersonControllerTest {
         steve.lastName = "Ditko";
         steve.id = "3";
 
-        when(service.findAll()).thenReturn(Flux.just(stan, jack));
-        when(service.findById("1")).thenReturn(Mono.just(stan));
-        when(service.create(any(PersonEntity.class))).thenReturn(Mono.just(steve));
-        when(service.delete(anyString())).thenReturn(Mono.<Void>empty());
+        List<PersonEntity> persons = new ArrayList<>();
+        persons.add(stan);
+        persons.add(jack);
+
+        when(service.findPart(any())).thenReturn(persons);
+        when(service.findById("1")).thenReturn(stan);
+        when(service.create(any(PersonEntity.class))).thenReturn(steve);
     }
 
     @Test

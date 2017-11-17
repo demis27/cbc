@@ -1,23 +1,22 @@
 package org.demis27.cbc.api.converter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.demis27.cbc.api.dto.PersonDTO;
 import org.demis27.cbc.api.entity.PersonEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
 public class PersonConverter {
 
-    public Mono<PersonDTO> convertEntity(Mono<PersonEntity> entity) {
-        return entity.map(person -> convertEntity(person));
-    }
-
-    public Flux<PersonDTO> convertEntities(Flux<PersonEntity> entities) {
-        return entities.map(person -> convertEntity(person));
+    public List<PersonDTO> convertEntities(List<PersonEntity> entities) {
+        return entities.stream().map(person -> convertEntity(person)).collect(Collectors.toList());
     }
 
     public PersonDTO convertEntity(PersonEntity entity) {
+        if (entity == null)
+            return null;
         PersonDTO dto = new PersonDTO();
         dto.id = entity.id;
         dto.firstName = entity.firstName;
@@ -26,12 +25,8 @@ public class PersonConverter {
         return dto;
     }
 
-    public Mono<PersonEntity> convertDTO(Mono<PersonDTO> dto) {
-        return dto.map(person -> convertDTO(person));
-    }
-
-    public Flux<PersonEntity> convertDTOs(Flux<PersonDTO> dtos) {
-        return dtos.map(person -> convertDTO(person));
+    public List<PersonEntity> convertDTOs(List<PersonDTO> dtos) {
+        return dtos.stream().map(person -> convertDTO(person)).collect(Collectors.toList());
     }
 
     public PersonEntity convertDTO(PersonDTO dto) {

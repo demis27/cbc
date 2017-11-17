@@ -1,6 +1,10 @@
 package org.demis27.cbc.api.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.demis27.cbc.api.entity.ComicBookEntity;
+import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.repository.ComicBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +17,23 @@ public class ComicBookService {
     @Autowired
     private ComicBookRepository repository;
 
-    public Flux<ComicBookEntity> findAll() {
+    public List<ComicBookEntity> findAll() {
         return repository.findAll();
     }
 
-    public Mono<ComicBookEntity> findById(String id) {
-        return repository.findById(id);
+    public ComicBookEntity findById(String id) {
+        Optional<ComicBookEntity> comicBookEntity = repository.findById(id);
+        if (comicBookEntity.isPresent())
+            return comicBookEntity.get();
+        else
+            return null;
     }
 
-    public Mono<ComicBookEntity> create(ComicBookEntity ComicBook) {
+    public ComicBookEntity create(ComicBookEntity ComicBook) {
         return repository.insert(ComicBook);
     }
 
-    public Mono<Void> delete(String id) {
-        return repository.deleteById(id);
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 }
