@@ -1,6 +1,5 @@
 package org.demis27.cbc.api.entity;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;

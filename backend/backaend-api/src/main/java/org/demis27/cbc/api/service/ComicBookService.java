@@ -7,12 +7,13 @@ import org.demis27.cbc.api.entity.ComicBookEntity;
 import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.repository.ComicBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class ComicBookService {
+public class ComicBookService extends EntityService<ComicBookEntity> {
 
     @Autowired
     private ComicBookRepository repository;
@@ -35,5 +36,9 @@ public class ComicBookService {
 
     public void delete(String id) {
         repository.deleteById(id);
+    }
+
+    @Override protected MongoRepository<ComicBookEntity, String> getRepository() {
+        return repository;
     }
 }

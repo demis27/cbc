@@ -11,22 +11,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonConverter extends Converter<PersonEntity, PersonDTO> {
 
+    @Override
     public PersonDTO convertEntity(PersonEntity entity) {
         if (entity == null)
             return null;
         PersonDTO dto = new PersonDTO();
-        dto.id = entity.id;
+        convertBaseEntity(entity, dto);
         dto.firstName = entity.firstName;
         dto.lastName = entity.lastName;
-        dto.createDate = entity.createDate;
-        dto.lastUpdateDate = entity.lastUpdateDate;
 
         return dto;
     }
 
+    @Override
     public PersonEntity convertDTO(PersonDTO dto) {
+        if (dto == null)
+            return null;
         PersonEntity entity = new PersonEntity();
-        entity.id = dto.id;
+        convertBaseDto(dto, entity);
         entity.firstName = dto.firstName;
         entity.lastName = dto.lastName;
 

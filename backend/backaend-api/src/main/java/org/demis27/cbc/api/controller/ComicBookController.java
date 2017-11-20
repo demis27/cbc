@@ -7,18 +7,28 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.demis27.cbc.api.converter.ComickBookConverter;
+import org.demis27.cbc.api.converter.Converter;
+import org.demis27.cbc.api.converter.PersonConverter;
+import org.demis27.cbc.api.dto.ComicBookDTO;
+import org.demis27.cbc.api.dto.PersonDTO;
 import org.demis27.cbc.api.entity.ComicBookEntity;
+import org.demis27.cbc.api.entity.PersonEntity;
 import org.demis27.cbc.api.service.ComicBookService;
+import org.demis27.cbc.api.service.EntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class ComicBookController {
+public class ComicBookController extends Controller<ComicBookEntity, ComicBookDTO> {
 
     @Autowired
     private ComicBookService service;
+
+    @Autowired
+    private ComickBookConverter converter;
 
     @RequestMapping(path = "/api/comicBook", method = RequestMethod.GET)
     public List<ComicBookEntity> list() {
@@ -42,6 +52,14 @@ public class ComicBookController {
 
     @RequestMapping(path = "/api/comicBook", method = RequestMethod.OPTIONS)
     ResponseEntity<Void> options() {
-        return allows(HttpMethod.GET, HttpMethod.OPTIONS, HttpMethod.DELETE, HttpMethod.POST, HttpMethod.HEAD );
+        return allows(HttpMethod.GET, HttpMethod.OPTIONS, HttpMethod.DELETE, HttpMethod.POST, HttpMethod.HEAD);
+    }
+
+    @Override protected EntityService<ComicBookEntity> getService() {
+        return service;
+    }
+
+    @Override protected Converter<ComicBookEntity, ComicBookDTO> getConverter() {
+        return converter;
     }
 }

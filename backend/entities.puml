@@ -1,0 +1,47 @@
+@startuml
+
+title Entities relationships
+
+abstract class Entity {
+    String id
+    Date createDate
+    Date lastUpdateDate
+}
+
+class Person {
+    String firstName
+    String lastName
+    String middleName
+}
+
+class ComicBook {
+    String title
+    String number
+    Map<Author, Role> authors
+}
+
+class Role {
+    String label
+}
+
+class ComicBookEdition {
+    String isbn
+}
+
+class ComicBookSet {
+    String title
+}
+
+class User {
+    String email
+}
+
+Entity <|-down- Person: Inheritance
+Entity <|-down- ComicBook: Inheritance
+Entity <|-down- ComicBookSet: Inheritance
+Entity <|-down- ComicBookEdition: Inheritance
+Person <|-down- User: Inheritance
+ComicBookSet o-- "Set" ComicBook
+ComicBookSet o-- "Set" ComicBookSet : Subset
+
+@enduml
