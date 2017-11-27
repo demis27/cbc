@@ -10,16 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
-public class GraphQLController {
-
-    private GraphQLService graphQLService;
+public class ComicBookGraphQLController {
 
     @Autowired
-    public GraphQLController(GraphQLService graphQLService) {
-        this.graphQLService = graphQLService;
-    }
+    private GraphQLService graphQLService;
 
-    @RequestMapping(value = "/graphql",method = RequestMethod.POST)
+    @RequestMapping(value = "/graphql/comicBook",method = RequestMethod.POST)
     public Object handle(@RequestBody Map<String,String> query) {
         return graphQLService.resolve(query);
     }

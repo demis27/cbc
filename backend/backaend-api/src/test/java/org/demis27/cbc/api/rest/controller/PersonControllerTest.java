@@ -1,4 +1,4 @@
-package org.demis27.cbc.api.controller;
+package org.demis27.cbc.api.rest.controller;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.mockito.Matchers.any;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.demis27.cbc.api.common.dto.PersonDTO;
 import org.demis27.cbc.data.entity.PersonEntity;
-import org.demis27.cbc.api.rest.controller.PersonController;
 import org.demis27.cbc.service.PersonService;
 import org.junit.Assert;
 import org.junit.Before;
