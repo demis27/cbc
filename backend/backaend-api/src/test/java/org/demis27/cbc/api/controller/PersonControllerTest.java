@@ -10,9 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.demis27.cbc.api.dto.PersonDTO;
-import org.demis27.cbc.api.entity.PersonEntity;
-import org.demis27.cbc.api.service.PersonService;
+import org.demis27.cbc.api.common.dto.PersonDTO;
+import org.demis27.cbc.data.entity.PersonEntity;
+import org.demis27.cbc.api.rest.controller.PersonController;
+import org.demis27.cbc.service.PersonService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

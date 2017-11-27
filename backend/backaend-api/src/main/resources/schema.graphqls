@@ -1,0 +1,17 @@
+type ComicBookDTO {
+    title: String!
+    number: String
+}
+
+type ComicBookQuery {
+  allComicBooks: [ComicBookDTO]
+}
+
+type ComicBookMutation {
+    createComicBook(title: String!, number: String!): ComicBookDTO
+}
+
+schema {
+  query: ComicBookQuery
+  mutation: ComicBookMutation
+}
