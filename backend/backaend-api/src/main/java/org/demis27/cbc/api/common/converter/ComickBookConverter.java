@@ -2,6 +2,7 @@ package org.demis27.cbc.api.common.converter;
 
 import org.demis27.cbc.api.common.dto.ComicBookDTO;
 import org.demis27.cbc.data.entity.ComicBookEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,7 @@ public class ComickBookConverter extends Converter<ComicBookEntity, ComicBookDTO
         convertBaseEntity(entity, dto);
         dto.title = entity.title;
         dto.number = entity.number;
+        dto.writers = entity.writers;
 
         return dto;
     }

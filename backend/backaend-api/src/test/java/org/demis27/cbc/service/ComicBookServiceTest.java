@@ -41,7 +41,7 @@ public class ComicBookServiceTest {
         when(personRepository.insert(any(PersonEntity.class))).thenReturn(writer);
 
         writer = personService.create(writer);
-        comicBook.writers.add(writer);
+        comicBook.writers.add(writer.getId());
 
         when(comicBookRepository.insert(any(ComicBookEntity.class))).thenReturn(comicBook);
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.demis27.cbc.data.entity.ComicBookEntity;
 import org.demis27.cbc.data.repository.ComicBookRepository;
+import org.demis27.cbc.data.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ public class ComicBookService extends EntityService<ComicBookEntity> {
 
     @Autowired
     private ComicBookRepository repository;
+
+    @Autowired PersonRepository personRepository;
 
     public List<ComicBookEntity> findAll() {
         return repository.findAll();
@@ -27,8 +30,8 @@ public class ComicBookService extends EntityService<ComicBookEntity> {
             return null;
     }
 
-    public ComicBookEntity create(ComicBookEntity ComicBook) {
-        return repository.insert(ComicBook);
+    public ComicBookEntity create(ComicBookEntity comicBook) {
+        return repository.insert(comicBook);
     }
 
     public void delete(String id) {

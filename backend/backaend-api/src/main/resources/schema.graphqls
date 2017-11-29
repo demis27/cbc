@@ -1,6 +1,12 @@
 type ComicBookDTO {
-    title: String!
+    title: String
     number: String
+    writers: [PersonDTO]!
+}
+
+type PersonDTO {
+    firstName: String
+    lastName: String
 }
 
 type ComicBookQuery {

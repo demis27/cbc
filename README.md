@@ -7,4 +7,4 @@ TODO
 * Add Unit Test for GraphQL
 * Add GraphQL with embedded elements (persons in comicBook)
 * Add pagination in GraphQL comicBook query
-
+* Add swagger
