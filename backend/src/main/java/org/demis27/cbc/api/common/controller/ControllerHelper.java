@@ -1,4 +1,4 @@
-package org.demis27.cbc.api.rest.controller;
+package org.demis27.cbc.api.common.controller;
 
 import java.util.Collections;
 import java.util.HashSet;

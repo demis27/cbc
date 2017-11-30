@@ -1,16 +1,18 @@
 type ComicBookDTO {
+    id: String
     title: String
     number: String
     writers: [PersonDTO]!
 }
 
 type PersonDTO {
+    id: String
     firstName: String
     lastName: String
 }
 
 type ComicBookQuery {
-  allComicBooks: [ComicBookDTO]
+  allComicBooks(pageNumber: Int, pageSize: Int, sort: String): [ComicBookDTO]
 }
 
 type ComicBookMutation {
